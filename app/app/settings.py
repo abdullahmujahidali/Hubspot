@@ -170,40 +170,12 @@ LOGGING = {
             'formatter': 'verbose',
             'encoding': 'utf-8'
         },
-        'demo': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, "log/demo.log"),  # Location of log files
-            'maxBytes': 1024 * 1024 * 50,
-            'backupCount': 5,
-            'formatter': 'verbose',
-            'encoding': 'utf-8'
-        },
-        'support': {
-            'level': 'ERROR',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, "log/support.log"),  # Location of log files
-            'maxBytes': 1024 * 1024 * 50,
-            'backupCount': 5,
-            'formatter': 'verbose',
-            'encoding': 'utf-8'
-        },
     },
     'loggers': {
         'django': {
             'handlers': ['info', 'console'],
             'propagate': True,
             'level': "INFO",
-        },
-        'demo_log': {
-            'handlers': ['demo'],
-            'propagate': True,
-            'level': "INFO",
-        },
-        'support_log': {
-            'handlers': ['support'],
-            'propagate': True,
-            'level': "ERROR",
         },
     }
 }

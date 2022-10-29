@@ -12,11 +12,12 @@ class CronJob:
     """Class for cron job."""
 
     def __init__(self):
-        self.seconds=500
+        self.seconds=5
         pass
 
     def print_hello(self):
-        print("HI: ", self.seconds)
+        pass
+        # print("HI: ", self.seconds)
 
     def start(self):
         scheduler = BackgroundScheduler(timezone="Europe/Berlin")
