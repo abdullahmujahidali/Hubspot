@@ -1,4 +1,5 @@
 import json
+from urllib import request
 import requests
 # DRF
 from rest_framework import serializers
@@ -11,9 +12,23 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserSchema
-        fields = ["first_name", "last_name", "email", "hubspot_id"]
+        fields = ["first_name", "last_name", "email"]
 
     def create(self, validated_data):
+        # resp = requests.post(
+        #     "https://api.hubapi.com/oauth/v1/token",
+        #     headers={
+        #         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+        #     data={
+        #         'grant_type':'authorization_code',
+        #         'client_id':'a3854853-aec0-4522-aaad-a6270161d187',
+        #         'client_secret':'f140377b-2231-4fe8-88e5-8704d4fd24e3', 
+        #         'redirect_uri': 'https://google.com/',
+        #         'code':'854ce293-a00e-4f4b-b64b-43f65cd4170c',
+        #     }
+        # )
+        # print('res: ', resp.content)
+
         res = requests.post(
             "https://api.hubapi.com/contacts/v1/contact/",
             headers={
