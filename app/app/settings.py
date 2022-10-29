@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'APScheduler',
     'rest_framework',
     'user',
 ]
@@ -130,3 +131,75 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False if DEBUG else True,
+    'formatters': {  # Format for displaying log information
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(lineno)s %(message)s'
+            # "class": "pythonjsonlogger.jsonlogger.JsonFormatter"
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(funcName)s %(lineno)d %(message)s'
+            # "class": "pythonjsonlogger.jsonlogger.JsonFormatter"
+        },  # Logging Level+Time Date+Module Name+Function Name+Line Number+Logging Message
+    },
+    'filters': {  # Filter logs
+        'require_debug_true': {  # django does not output logs until debug mode
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, "log/info.log"), # Location of log files
+            'maxBytes': 300 * 1024 * 1024,
+            'backupCount': 10,
+            'formatter': 'verbose',
+            'encoding': 'utf-8'
+        },
+        'demo': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, "log/demo.log"),  # Location of log files
+            'maxBytes': 1024 * 1024 * 50,
+            'backupCount': 5,
+            'formatter': 'verbose',
+            'encoding': 'utf-8'
+        },
+        'support': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, "log/support.log"),  # Location of log files
+            'maxBytes': 1024 * 1024 * 50,
+            'backupCount': 5,
+            'formatter': 'verbose',
+            'encoding': 'utf-8'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['info', 'console'],
+            'propagate': True,
+            'level': "INFO",
+        },
+        'demo_log': {
+            'handlers': ['demo'],
+            'propagate': True,
+            'level': "INFO",
+        },
+        'support_log': {
+            'handlers': ['support'],
+            'propagate': True,
+            'level': "ERROR",
+        },
+    }
+}

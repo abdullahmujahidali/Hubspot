@@ -10,6 +10,8 @@ COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
 
+# USER root
+
 ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
@@ -31,6 +33,6 @@ RUN python -m venv /py && \
 
 ENV PATH="/scripts:/py/bin:$PATH"
 
-USER django-user
+# USER django-user
 
 CMD ["run.sh"]
