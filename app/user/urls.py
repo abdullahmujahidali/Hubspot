@@ -2,10 +2,10 @@
 from django.urls import path
 
 
-# from user.views import activate_account,
+from user.views import API
 
 app_name = "user"
 
 urlpatterns = [
-    # path("create/", create_account.API.as_view(), name="create-account"),
+    path("create/", API.as_view(), name="create-account"),
 ]
